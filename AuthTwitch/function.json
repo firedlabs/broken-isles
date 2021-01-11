@@ -19,8 +19,8 @@
       "type": "queue",
       "direction": "out",
       "name": "newAuthTwitch",
-      "queueName": "outqueue",
-      "connection": "newAuthTwitch"
+      "queueName": "newauthtwitch",
+      "connection": "firedlabsfunction_STORAGE"
     }
   ]
 }

@@ -21,13 +21,6 @@ const getCodeRedirect = (context) => {
   };
 };
 
-const newAuthAddQueueWithIpAndToken = (context, token, ip) => {
-  context.bindings.newAuthTwitch = {
-    token,
-    ip,
-  };
-};
-
 const getToken = async (context, code) => {
   const url = "https://id.twitch.tv/oauth2/token";
   const query = {
@@ -41,7 +34,7 @@ const getToken = async (context, code) => {
 
   try {
     res = await axios.post(url, querystring.stringify(query));
-    newAuthAddQueueWithIpAndToken(context, res.data.access_token, "10.10.10.0");
+    context.bindings.newAuthTwitch = res.data.access_token;
   } catch (err) {
     const { status, message } = err.response.data;
 
