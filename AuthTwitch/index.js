@@ -53,6 +53,8 @@ const getToken = async (context, code) => {
       status: 302,
       headers: {
         location: HOST_FRONTEND,
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, OPTIONS",
       },
     };
   }
