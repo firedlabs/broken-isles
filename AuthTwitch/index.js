@@ -54,7 +54,6 @@ const getToken = async (context, code) => {
       headers: {
         location: HOST_FRONTEND,
       },
-      cookies: [{ name: "token", value: access_token, path: "/" }],
     };
   }
 };

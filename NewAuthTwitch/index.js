@@ -25,9 +25,7 @@ module.exports = async function (context, myQueueItem) {
       brodcasterType: broadcaster_type,
       profileImageUrl: profile_image_url,
     };
-
     const userDatabase = context.bindings.inputDocument;
-
     const userLess = userDatabase.some((item) => item.email === user.email);
 
     const saveUser = (userParam) =>
