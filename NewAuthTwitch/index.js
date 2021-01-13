@@ -25,15 +25,15 @@ module.exports = async function (context, myQueueItem) {
       brodcasterType: broadcaster_type,
       profileImageUrl: profile_image_url,
     };
-    const userDatabase = context.bindings.inputDocument;
-    const userLess = userDatabase.some((item) => item.email === user.email);
+    const usersDatabase = context.bindings.inputDocument;
+    const findUser =
+      usersDatabase.find((item) => item.email === user.email) || {};
+    const newUser = { ...findUser, ...user };
 
     const saveUser = (userParam) =>
       (context.bindings.outputDocument = userParam);
 
-    if (userLess) {
-      saveUser(user);
-    }
+    saveUser(newUser);
   } catch (err) {
     context.log(err);
   }
