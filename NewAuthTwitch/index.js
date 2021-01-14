@@ -1,22 +1,28 @@
 const axios = require("axios");
 const { CLIENT_ID } = process.env;
 
-module.exports = async function (context, myQueueItem) {
-  const token = myQueueItem;
+const getUserTwitch = async (token) => {
   const url = "https://api.twitch.tv/helix/users";
   const headers = {
     Authorization: `Bearer ${token}`,
     "Client-Id": CLIENT_ID,
   };
 
+  const res = await axios.get(url, { headers });
+
+  return res.data.data[0];
+};
+
+module.exports = async function (context, myQueueItem) {
+  const token = myQueueItem;
+
   try {
-    const res = await axios.get(url, { headers });
     const {
       login,
       email,
       broadcaster_type,
       profile_image_url,
-    } = res.data.data[0];
+    } = await getUserTwitch(token);
 
     const user = {
       login,
@@ -30,10 +36,10 @@ module.exports = async function (context, myQueueItem) {
       usersDatabase.find((item) => item.email === user.email) || {};
     const newUser = { ...findUser, ...user };
 
-    const saveUser = (userParam) =>
+    const saveAndUpdateUser = (userParam) =>
       (context.bindings.outputDocument = userParam);
 
-    saveUser(newUser);
+    saveAndUpdateUser(newUser);
   } catch (err) {
     context.log(err);
   }

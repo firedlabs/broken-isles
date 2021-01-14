@@ -1,27 +1,62 @@
+const axios = require("axios");
+
+const { CLIENT_ID } = process.env;
+const headers = {
+  "Access-Control-Allow-Credentials": true,
+};
+
 const getCookie = (cookies, name) => {
   const search = new RegExp(`^ ${name}=|${name}=`);
 
-  return cookies
-    .split(";")
-    .find((item) => item.match(search))
-    .replace(search, "");
+  const findCookie = cookies.split(";").find((item) => item.match(search));
+
+  return Boolean(findCookie) && findCookie.replace(search, "");
+};
+
+const getUserTwitch = async (token) => {
+  const url = "https://api.twitch.tv/helix/users";
+  const headers = {
+    Authorization: `Bearer ${token}`,
+    "Client-Id": CLIENT_ID,
+  };
+
+  try {
+    const res = await axios.get(url, { headers });
+
+    return res.data.data[0];
+  } catch (err) {
+    return err;
+  }
 };
 
 module.exports = async function (context, req) {
-  const token = getCookie(req.headers.cookie, "token");
+  const cookies = req.headers.cookie;
+  const token = Boolean(cookies) && getCookie(cookies, "token");
 
-  const user =
-    context.bindings.usersDocument.find((user) => user.token === token) ||
-    false;
+  if (!token) {
+    return {
+      status: 401,
+      headers,
+    };
+  }
 
-  context.res = {
+  const user = await getUserTwitch(token);
+
+  if (!user.login) {
+    return {
+      status: 404,
+      body: {
+        message: "Usuário não encontrado",
+      },
+    };
+  }
+
+  return {
     status: 200,
     body: {
-      src: user.profileImageUrl,
+      src: user.profile_image_url,
       alt: `Avatar do ${user.login}`,
     },
-    headers: {
-      "Access-Control-Allow-Credentials": true,
-    },
+    headers,
   };
 };

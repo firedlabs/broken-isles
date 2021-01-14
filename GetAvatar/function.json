@@ -13,15 +13,7 @@
     {
       "type": "http",
       "direction": "out",
-      "name": "res"
-    },
-    {
-      "type": "cosmosDB",
-      "direction": "in",
-      "name": "usersDocument",
-      "databaseName": "firedlabs",
-      "collectionName": "users",
-      "connectionStringSetting": "firedlabs_DOCUMENTDB"
+      "name": "$return"
     }
   ]
 }
