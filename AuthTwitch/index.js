@@ -47,14 +47,21 @@ const getToken = async (context, code) => {
   }
 
   if (res.data.access_token) {
-    const { access_token } = res.data;
+    const { access_token, expires_in } = res.data;
 
     context.res = {
       status: 302,
       headers: {
         location: HOST_FRONTEND,
       },
-      cookies: [{ name: "token", value: access_token, path: "/" }],
+      cookies: [
+        {
+          name: "token",
+          value: access_token,
+          path: "/",
+          secure: true,
+        },
+      ],
     };
   }
 };
