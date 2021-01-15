@@ -59,8 +59,9 @@ const getToken = async (context, code) => {
           name: "token",
           value: access_token,
           path: "/",
+          maxAge: expires_in,
+          sameSite: "none",
           secure: true,
-          SameSite: "none",
         },
       ],
     };
