@@ -60,6 +60,7 @@ const getToken = async (context, code) => {
           value: access_token,
           path: "/",
           secure: true,
+          SameSite: "none",
         },
       ],
     };
