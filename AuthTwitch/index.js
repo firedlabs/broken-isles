@@ -1,6 +1,5 @@
 const querystring = require("querystring");
 const axios = require("axios");
-const { access } = require("fs");
 const { CLIENT_SECRET, CLIENT_ID, HOST_API, HOST_FRONTEND } = process.env;
 const scope = "user:read:email";
 

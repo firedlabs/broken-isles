@@ -18,6 +18,7 @@ module.exports = async function (context, myQueueItem) {
 
   try {
     const {
+      id,
       login,
       email,
       broadcaster_type,
@@ -25,6 +26,7 @@ module.exports = async function (context, myQueueItem) {
     } = await getUserTwitch(token);
 
     const user = {
+      idTwitch: id,
       login,
       email,
       token,

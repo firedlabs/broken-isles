@@ -20,7 +20,7 @@ module.exports = async function (context, req) {
   };
 
   try {
-    const res = await axios.get(url, { headers });
+    await axios.get(url, { headers });
 
     return {
       status: 200,
