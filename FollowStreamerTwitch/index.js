@@ -35,8 +35,8 @@ module.exports = async function (context, req) {
   const idStreamer = await getIdUserTwitch(token, "marcobrunodev");
   const url = "https://api.twitch.tv/helix/users/follows";
   const params = {
-    from_id: idStreamer,
-    to_id: idViewer,
+    from_id: idViewer,
+    to_id: idStreamer,
   };
   const headers = {
     Authorization: `Bearer ${token}`,
