@@ -1,7 +1,7 @@
 const querystring = require("querystring");
 const axios = require("axios");
 const { CLIENT_SECRET, CLIENT_ID, HOST_API, HOST_FRONTEND } = process.env;
-const scope = "user:read:email";
+const scope = "user:read:email user:edit:follows";
 
 const getCodeRedirect = (context) => {
   const query = {

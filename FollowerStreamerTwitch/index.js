@@ -30,36 +30,34 @@ const getIdUserTwitch = async (token, login) => {
 
 module.exports = async function (context, req) {
   const cookies = req.headers.cookie;
-  const url = "https://api.twitch.tv/helix/users/follows";
   const token = getCookie(cookies, "token");
   const idViewer = await getIdUserTwitch(token);
   const idStreamer = await getIdUserTwitch(token, "marcobrunodev");
-  const data = {
+  const url = "https://api.twitch.tv/helix/users/follows";
+  const params = {
     from_id: idViewer,
     to_id: idStreamer,
   };
   const headers = {
     Authorization: `Bearer ${token}`,
     "Client-Id": CLIENT_ID,
-    "Content-Type": "application/json",
   };
   const headersResponse = {
     "Access-Control-Allow-Credentials": true,
   };
 
   try {
-    await axios.post(url, data, { headers });
+    const res = await axios.get(url, { params, headers });
+    const { total } = res.data;
+    const isAuthorized = total === 1;
 
     return {
-      status: 204,
+      status: isAuthorized ? 200 : 401,
       headers: headersResponse,
     };
   } catch (err) {
-    const { status, message } = err.response.data;
-
     return {
-      status,
-      body: message,
+      status: 500,
       headers: headersResponse,
     };
   }
