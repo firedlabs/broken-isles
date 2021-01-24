@@ -1,0 +1,27 @@
+{
+  "bindings": [
+    {
+      "authLevel": "anonymous",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": [
+        "get"
+      ],
+      "route": "user"
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "$return"
+    },
+    {
+      "type": "cosmosDB",
+      "direction": "in",
+      "name": "inputUsers",
+      "databaseName": "firedlabs",
+      "collectionName": "users",
+      "connectionStringSetting": "firedlabs_DOCUMENTDB"
+    }
+  ]
+}
