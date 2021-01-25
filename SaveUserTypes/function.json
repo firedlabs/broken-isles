@@ -1,0 +1,36 @@
+{
+  "bindings": [
+    {
+      "authLevel": "anonymous",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": [
+        "post"
+      ],
+      "route": "user/types"
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "$return"
+    },
+    {
+      "type": "cosmosDB",
+      "direction": "out",
+      "name": "outputUserTypes",
+      "databaseName": "firedlabs",
+      "collectionName": "UserTypes",
+      "createIfNotExists": "true",
+      "connectionStringSetting": "firedlabs_DOCUMENTDB"
+    },
+    {
+      "type": "cosmosDB",
+      "direction": "in",
+      "name": "inputUserTypes",
+      "databaseName": "firedlabs",
+      "collectionName": "UserTypes",
+      "connectionStringSetting": "firedlabs_DOCUMENTDB"
+    }
+  ]
+}
