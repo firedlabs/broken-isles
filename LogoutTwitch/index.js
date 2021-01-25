@@ -33,7 +33,10 @@ module.exports = async function (context, req) {
       headers,
     };
   } catch (err) {
-    const { status, message } = err.response.data;
+    const { status, message } = err.response.data || {
+      status: 500,
+      message: err,
+    };
 
     return {
       status,
