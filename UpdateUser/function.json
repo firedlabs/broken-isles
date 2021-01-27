@@ -8,28 +8,28 @@
       "methods": [
         "post"
       ],
-      "route": "user/types"
+      "route": "user"
     },
     {
       "type": "http",
       "direction": "out",
-      "name": "res"
-    },
-    {
-      "type": "cosmosDB",
-      "direction": "out",
-      "name": "outputUserTypes",
-      "databaseName": "firedlabs",
-      "collectionName": "UserTypes",
-      "createIfNotExists": "true",
-      "connectionStringSetting": "firedlabs_DOCUMENTDB"
+      "name": "$return"
     },
     {
       "type": "cosmosDB",
       "direction": "in",
-      "name": "inputUserTypes",
+      "name": "inputUsers",
       "databaseName": "firedlabs",
-      "collectionName": "UserTypes",
+      "collectionName": "users",
+      "connectionStringSetting": "firedlabs_DOCUMENTDB"
+    },
+    {
+      "type": "cosmosDB",
+      "direction": "out",
+      "name": "outputUsers",
+      "databaseName": "firedlabs",
+      "collectionName": "users",
+      "createIfNotExists": "true",
       "connectionStringSetting": "firedlabs_DOCUMENTDB"
     }
   ]

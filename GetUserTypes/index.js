@@ -1,7 +1,5 @@
 const axios = require("axios");
-
 const { HOST_API } = process.env;
-
 const headersResponse = {
   "Access-Control-Allow-Credentials": true,
 };
@@ -29,31 +27,15 @@ const hasAuthorized = async (context, req) => {
   }
 };
 
-const getUsers = (context, req) => {
-  try {
-    const users = context.bindings.inputUsers.map(
-      ({ login, profileImageUrl }) => ({ login, avatar: profileImageUrl })
-    );
+const getUserTypes = (context) => {
+  const userTypesData = context.bindings.inputUserTypes;
 
-    context.res = {
-      body: {
-        users,
-      },
-      headers: headersResponse,
-    };
-  } catch (err) {
-    const { status, message } = err.response.data || {
-      status: 500,
-      message: err,
-    };
-
-    context.res = {
-      status,
-      body: message,
-    };
-  }
+  context.res = {
+    body: userTypesData,
+    headers: headersResponse,
+  };
 };
 
 module.exports = async function (context, req) {
-  (await hasAuthorized(context, req)) && getUsers(context, req);
+  (await hasAuthorized(context, req)) && getUserTypes(context);
 };

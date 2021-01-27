@@ -8,12 +8,12 @@
       "methods": [
         "get"
       ],
-      "route": "user"
+      "route": "user/{login}"
     },
     {
       "type": "http",
       "direction": "out",
-      "name": "res"
+      "name": "$return"
     },
     {
       "type": "cosmosDB",

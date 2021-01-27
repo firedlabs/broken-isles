@@ -8,20 +8,12 @@
       "methods": [
         "get"
       ],
-      "route": "user"
+      "route": "user/authorized"
     },
     {
       "type": "http",
       "direction": "out",
       "name": "res"
-    },
-    {
-      "type": "cosmosDB",
-      "direction": "in",
-      "name": "inputUsers",
-      "databaseName": "firedlabs",
-      "collectionName": "users",
-      "connectionStringSetting": "firedlabs_DOCUMENTDB"
     }
   ]
 }
