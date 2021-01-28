@@ -8,7 +8,7 @@
       "methods": [
         "get"
       ],
-      "route": "user/{login}"
+      "route": "user/login/{login}"
     },
     {
       "type": "http",
