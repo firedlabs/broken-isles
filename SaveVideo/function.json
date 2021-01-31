@@ -1,26 +1,27 @@
 {
   "bindings": [
     {
-      "authLevel": "function",
+      "authLevel": "anonymous",
       "type": "httpTrigger",
       "direction": "in",
       "name": "req",
       "methods": [
-        "get"
+        "post"
       ],
-    "route": "func/user/authorized/{token}"
+      "route": "video"
     },
     {
       "type": "http",
       "direction": "out",
-      "name": "$return"
+      "name": "res"
     },
     {
       "type": "cosmosDB",
-      "direction": "in",
-      "name": "inputUsers",
+      "direction": "out",
+      "name": "outputVideo",
       "databaseName": "firedlabs",
-      "collectionName": "users",
+      "collectionName": "videos",
+      "createIfNotExists": "true",
       "connectionStringSetting": "firedlabs_DOCUMENTDB"
     }
   ]

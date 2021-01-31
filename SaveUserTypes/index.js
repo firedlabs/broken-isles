@@ -1,5 +1,5 @@
 const axios = require("axios");
-const { HOST_API } = process.env;
+const { HOST_API, KEY_FUNC_AUTHORIZED } = process.env;
 const headersResponse = {
   "Access-Control-Allow-Credentials": true,
 };
@@ -23,7 +23,8 @@ const hasAuthorized = async (context, req) => {
   try {
     const cookies = req.headers.cookie;
     const token = getCookie(cookies, "token");
-    await axios.get(`${HOST_API}/api/func/user/auth/${token}`);
+    const url = `${HOST_API}/api/func/user/authorized/${token}?code=${KEY_FUNC_AUTHORIZED}`;
+    await axios.get(url);
 
     return true;
   } catch (err) {

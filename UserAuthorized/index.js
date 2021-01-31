@@ -1,5 +1,5 @@
 const axios = require("axios");
-const { HOST_API } = process.env;
+const { HOST_API, KEY_FUNC_AUTHORIZED } = process.env;
 
 const getCookie = (cookies, name) => {
   const search = new RegExp(`^ ${name}=|${name}=`);
@@ -10,13 +10,15 @@ const getCookie = (cookies, name) => {
 };
 
 module.exports = async function (context, req) {
+  const headersResponse = {
+    "Access-Control-Allow-Credentials": true,
+  };
+
   try {
-    const headersResponse = {
-      "Access-Control-Allow-Credentials": true,
-    };
     const cookies = req.headers.cookie;
     const token = getCookie(cookies, "token");
-    const res = await axios.get(`${HOST_API}/api/func/user/auth/${token}`);
+    const url = `${HOST_API}/api/func/user/authorized/${token}?code=${KEY_FUNC_AUTHORIZED}`;
+    const res = await axios.get(url);
     const { status, message } = res.data;
 
     context.res = {
@@ -27,8 +29,20 @@ module.exports = async function (context, req) {
       headers: headersResponse,
     };
   } catch (err) {
+    context.log("err", err);
+    const {
+      status,
+      data: { message },
+    } = err.response || {
+      status: 500,
+      message: err,
+    };
+
     context.res = {
-      status: 403,
+      status,
+      body: {
+        message,
+      },
       headers: headersResponse,
     };
   }
