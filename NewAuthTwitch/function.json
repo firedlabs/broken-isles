@@ -1,27 +1,35 @@
 {
   "bindings": [
     {
-      "name": "myQueueItem",
-      "type": "queueTrigger",
+      "authLevel": "function",
+      "type": "httpTrigger",
       "direction": "in",
-      "queueName": "newauthtwitch",
-      "connection": "firedlabsfunction_STORAGE"
+      "name": "req",
+      "methods": [
+        "post"
+      ],
+      "route": "auth/twitch/new"
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "res"
     },
     {
       "type": "cosmosDB",
-      "direction": "out",
-      "name": "outputDocument",
+      "direction": "in",
+      "name": "inputUsers",
       "databaseName": "firedlabs",
       "collectionName": "users",
-      "createIfNotExists": "true",
       "connectionStringSetting": "firedlabs_DOCUMENTDB"
     },
     {
       "type": "cosmosDB",
-      "direction": "in",
-      "name": "inputDocument",
+      "direction": "out",
+      "name": "outputUsers",
       "databaseName": "firedlabs",
       "collectionName": "users",
+      "createIfNotExists": "true",
       "connectionStringSetting": "firedlabs_DOCUMENTDB"
     }
   ]

@@ -1,6 +1,12 @@
 const querystring = require("querystring");
 const axios = require("axios");
-const { CLIENT_SECRET, CLIENT_ID, HOST_API, HOST_FRONTEND } = process.env;
+const {
+  CLIENT_SECRET,
+  CLIENT_ID,
+  HOST_API,
+  HOST_FRONTEND,
+  KEY_FUNC_AUTHORIZED,
+} = process.env;
 const scope = "user:read:email user:edit:follows channel:read:subscriptions";
 
 const getCodeRedirect = (context) => {
@@ -21,7 +27,8 @@ const getCodeRedirect = (context) => {
 };
 
 const getToken = async (context, code) => {
-  const url = "https://id.twitch.tv/oauth2/token";
+  const urlTokenTwitch = "https://id.twitch.tv/oauth2/token";
+  const urlNewAuthTwitch = `${HOST_API}/api/auth/twitch/new?code=${KEY_FUNC_AUTHORIZED}`;
   const query = {
     client_id: CLIENT_ID,
     client_secret: CLIENT_SECRET,
@@ -32,8 +39,9 @@ const getToken = async (context, code) => {
   let res = false;
 
   try {
-    res = await axios.post(url, querystring.stringify(query));
-    context.bindings.newAuthTwitch = res.data.access_token;
+    res = await axios.post(urlTokenTwitch, querystring.stringify(query));
+    const token = res.data.access_token;
+    await axios.post(urlNewAuthTwitch, JSON.stringify(token));
   } catch (err) {
     const { status, message } = err.response.data;
 
