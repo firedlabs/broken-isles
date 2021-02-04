@@ -41,7 +41,7 @@ const getToken = async (context, code) => {
   try {
     res = await axios.post(urlTokenTwitch, querystring.stringify(query));
     const token = res.data.access_token;
-    await axios.post(urlNewAuthTwitch, querystring.stringify(token));
+    await axios.post(urlNewAuthTwitch, JSON.stringify(token));
   } catch (err) {
     const { status, message } = err.response.data;
 
