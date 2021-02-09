@@ -1,14 +1,8 @@
 const axios = require("axios");
 const { HOST_API, KEY_FUNC_AUTHORIZED } = process.env;
+
 const headersResponse = {
   "Access-Control-Allow-Credentials": true,
-};
-
-const errorDefault = { status: 422, message: "Without body" };
-
-const errors = {
-  undefined: errorDefault,
-  null: errorDefault,
 };
 
 const getCookie = (cookies, name) => {
@@ -35,43 +29,28 @@ const hasAuthorized = async (context, req) => {
   }
 };
 
-const validationType = (type, userTypesData) => {
-  if (errors[type]) throw errors[type];
-  if (!type.name) throw { status: 422, message: "Without name in body" };
-  if (!type.description)
-    throw { status: 422, message: "Without description in body" };
-  if (userTypesData.some(({ name }) => type.name === name))
-    throw { status: 409, message: `The ${type.name} is duplicated` };
-};
-
-const saveUserTypes = (context, req) => {
+const getModuleById = (context, req) => {
   try {
-    const type = req.body;
-    const userTypesData = context.bindings.inputUserTypes;
-    validationType(type, userTypesData);
-
-    context.bindings.outputUserTypes = type;
+    const id = context.bindingData.id;
+    const module = context.bindings.inputModules.find(
+      (module) => module.id === id
+    );
 
     context.res = {
-      status: 201,
+      status: 200,
+      body: {
+        module,
+      },
       headers: headersResponse,
     };
   } catch (err) {
-    const { status, message } = err || {
-      status: 500,
-      message: err,
-    };
-
     context.res = {
-      status,
-      body: {
-        message,
-      },
+      status: 404,
       headers: headersResponse,
     };
   }
 };
 
 module.exports = async function (context, req) {
-  (await hasAuthorized(context, req)) && saveUserTypes(context, req);
+  (await hasAuthorized(context, req)) && getModuleById(context, req);
 };

@@ -8,7 +8,7 @@
       "methods": [
         "post"
       ],
-      "route": "module"
+      "route": "course"
     },
     {
       "type": "http",
@@ -18,11 +18,18 @@
     {
       "type": "cosmosDB",
       "direction": "out",
-      "name": "outputModules",
+      "name": "outputCourses",
       "databaseName": "firedlabs",
-      "collectionName": "modules",
+      "collectionName": "courses",
       "createIfNotExists": "true",
       "connectionStringSetting": "firedlabs_DOCUMENTDB"
+    },
+    {
+      "type": "blob",
+      "direction": "out",
+      "name": "outputBlob",
+      "path": "courses/{rand-guid}",
+      "connection": "firedlabsfunction_STORAGE"
     }
   ]
 }

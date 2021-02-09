@@ -1,14 +1,14 @@
 {
   "bindings": [
     {
-      "authLevel": "anonymous",
+      "authLevel": "function",
       "type": "httpTrigger",
       "direction": "in",
       "name": "req",
       "methods": [
-        "post"
+        "get"
       ],
-      "route": "module"
+      "route": "module/id/{id}"
     },
     {
       "type": "http",
@@ -17,11 +17,10 @@
     },
     {
       "type": "cosmosDB",
-      "direction": "out",
-      "name": "outputModules",
+      "direction": "in",
+      "name": "inputModules",
       "databaseName": "firedlabs",
       "collectionName": "modules",
-      "createIfNotExists": "true",
       "connectionStringSetting": "firedlabs_DOCUMENTDB"
     }
   ]
