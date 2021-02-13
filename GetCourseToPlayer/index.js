@@ -22,6 +22,7 @@ const hasAuthorized = async (context, req) => {
 
     return true;
   } catch (err) {
+    console.log(err);
     context.res = {
       status: 403,
       headers: headersResponse,
@@ -29,16 +30,16 @@ const hasAuthorized = async (context, req) => {
   }
 };
 
-const getCourseToPlay = (context, req) => {
+const getCourseToPlay = (context) => {
   context.res = {
     status: 200,
     body: {
-      value: "vai que vai",
+      text: "deu bom",
     },
     headers: headersResponse,
   };
 };
 
 module.exports = async function (context, req) {
-  (await hasAuthorized(context, req)) && getCourseToPlay(context, req);
+  (await hasAuthorized(context, req)) && getCourseToPlay(context);
 };
