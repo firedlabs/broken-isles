@@ -29,15 +29,14 @@ const hasAuthorized = async (context, req) => {
   }
 };
 
-const getUsers = (context, req) => {
+const getUserPermissions = (context) => {
   try {
-    const users = context.bindings.inputUsers.map(
-      ({ login, profileImageUrl }) => ({ login, avatar: profileImageUrl })
-    );
+    const userPermissions = context.bindings.inputUserPermissions;
 
     context.res = {
+      status: 200,
       body: {
-        users,
+        userPermissions,
       },
       headers: headersResponse,
     };
@@ -56,5 +55,5 @@ const getUsers = (context, req) => {
 };
 
 module.exports = async function (context, req) {
-  (await hasAuthorized(context, req)) && getUsers(context, req);
+  (await hasAuthorized(context, req)) && getUserPermissions(context);
 };
