@@ -32,6 +32,7 @@ const getUserTypes = (context) => {
   const userTypesData = context.bindings.inputUserTypes;
 
   context.res = {
+    status: 200,
     body: userTypesData,
     headers: headersResponse,
   };

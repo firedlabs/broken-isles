@@ -20,7 +20,7 @@
       "direction": "out",
       "name": "outputUserTypes",
       "databaseName": "firedlabs",
-      "collectionName": "UserTypes",
+      "collectionName": "userTypes",
       "createIfNotExists": "true",
       "connectionStringSetting": "firedlabs_DOCUMENTDB"
     },
@@ -29,7 +29,7 @@
       "direction": "in",
       "name": "inputUserTypes",
       "databaseName": "firedlabs",
-      "collectionName": "UserTypes",
+      "collectionName": "userTypes",
       "connectionStringSetting": "firedlabs_DOCUMENTDB"
     }
   ]
