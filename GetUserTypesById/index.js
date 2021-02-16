@@ -29,16 +29,23 @@ const hasAuthorized = async (context, req) => {
   }
 };
 
-const getVideos = (context) => {
+const getUserTypesById = (context) => {
   try {
-    const videos = context.bindings.inputVideos.map(({ id, name }) => ({
-      id,
-      name,
-    }));
+    const { id } = context.bindingData;
+    const userTypes = context.bindings.inputUserTypes;
+
+    const userType = userTypes.find((type) => type.id === id);
+
+    delete userType._rid;
+    delete userType._self;
+    delete userType._etag;
+    delete userType._attachments;
+    delete userType._ts;
 
     context.res = {
+      status: 200,
       body: {
-        videos,
+        userType,
       },
       headers: headersResponse,
     };
@@ -59,5 +66,5 @@ const getVideos = (context) => {
 };
 
 module.exports = async function (context, req) {
-  (await hasAuthorized(context, req)) && getVideos(context);
+  (await hasAuthorized(context, req)) && getUserTypesById(context);
 };

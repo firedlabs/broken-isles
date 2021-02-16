@@ -29,35 +29,21 @@ const hasAuthorized = async (context, req) => {
   }
 };
 
-const getVideos = (context) => {
+const updateUserTypes = (context, req) => {
   try {
-    const videos = context.bindings.inputVideos.map(({ id, name }) => ({
-      id,
-      name,
-    }));
+    const userTypes = req.body;
+    context.bindings.outputUserTypes = userTypes;
 
     context.res = {
+      status: 200,
       body: {
-        videos,
+        userTypes,
       },
       headers: headersResponse,
     };
-  } catch (err) {
-    const { status, message } = err.response.data || {
-      status: 500,
-      message: err,
-    };
-
-    context.res = {
-      status,
-      body: {
-        message,
-      },
-      headers: headersResponse,
-    };
-  }
+  } catch (err) {}
 };
 
 module.exports = async function (context, req) {
-  (await hasAuthorized(context, req)) && getVideos(context);
+  (await hasAuthorized(context, req)) && updateUserTypes(context, req);
 };
