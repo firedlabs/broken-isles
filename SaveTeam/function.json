@@ -1,0 +1,36 @@
+{
+  "bindings": [
+    {
+      "authLevel": "anonymous",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": [
+        "post"
+      ],
+      "route": "team"
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "res"
+    },
+    {
+      "type": "cosmosDB",
+      "direction": "out",
+      "name": "outputTeam",
+      "databaseName": "firedlabs",
+      "collectionName": "team",
+      "createIfNotExists": "true",
+      "connectionStringSetting": "firedlabs_DOCUMENTDB"
+    },
+    {
+      "type": "cosmosDB",
+      "direction": "in",
+      "name": "inputTeam",
+      "databaseName": "firedlabs",
+      "collectionName": "team",
+      "connectionStringSetting": "firedlabs_DOCUMENTDB"
+    }
+  ]
+}
