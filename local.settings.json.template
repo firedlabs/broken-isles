@@ -1,0 +1,15 @@
+
+{
+  "IsEncrypted": false,
+  "Values": {
+    "FUNCTIONS_WORKER_RUNTIME": "node",
+    "FUNCTIONS_EXTENSION_VERSION": "~3",
+    "AzureWebJobsStorage": "DefaultEndpointsProtocol=https;AccountName=firedlabsfunction;AccountKey=xBbM5GIM9/NR+OXKGyo5Ca+/EwsqEg6GHpgl9QKOtvQ2a/m7BdCLyylnvsYPG8QW/SuBjIGvdOi7f+9cJgqMRw==;EndpointSuffix=core.windows.net",
+    "firedlabsfunction_STORAGE": "sdfaf",
+    "firedlabs_DOCUMENTDB": "adfafad",
+    "HOST_API": "http://localhost:7071",
+    "HOST_FRONTEND": "http://localhost:3000",
+    "KEY_FUNC_AUTHORIZED": "kPzZSHIOV6HT//6ecXGoYaH6G3xoFUQRnZUxGff32KcD3SI71surRQ==",
+    "KEY_FUNC_NEW_AUTH_TWITCH": "unQIFCHskGUCo3oZbUMix8z2aQpFrfiy0RbMOtiD6Oznummgz6996Q==" 
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "bindings": [
+    {
+      "authLevel": "function",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": [
+        "get"
+      ],
+      "route": "user/admin/validate/{token}"
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "res"
+    },
+    {
+      "type": "cosmosDB",
+      "direction": "in",
+      "name": "inputUser",
+      "databaseName": "firedlabs",
+      "collectionName": "users",
+      "sqlQuery": "SELECT * FROM c WHERE c.token = {token}", 
+      "connectionStringSetting": "firedlabs_DOCUMENTDB"
+    }
+  ]
+}

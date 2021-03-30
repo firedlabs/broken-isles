@@ -28,4 +28,4 @@ const hasAuthorized = async (context, req) => {
   }
 };
 
-module.exports = { hasAuthorized, headersResponse };
+module.exports = { hasAuthorized, headersResponse, getCookie };
