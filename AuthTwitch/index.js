@@ -72,6 +72,7 @@ const getToken = async (context, code) => {
           maxAge: expires_in,
           sameSite: "None",
           secure: true,
+          httpOnly: true,
         },
       ],
     };
