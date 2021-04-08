@@ -8,7 +8,7 @@
       "methods": [
         "get"
       ],
-      "route": "user/admin/validate/{token}"
+      "route": "user/admin/validate/{login}"
     },
     {
       "type": "http",
@@ -21,7 +21,7 @@
       "name": "inputUser",
       "databaseName": "firedlabs",
       "collectionName": "users",
-      "sqlQuery": "SELECT * FROM c WHERE c.token = {token}", 
+      "sqlQuery": "SELECT * FROM c WHERE c.login = {login}", 
       "connectionStringSetting": "firedlabs_DOCUMENTDB"
     }
   ]

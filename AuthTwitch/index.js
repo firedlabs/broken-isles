@@ -60,9 +60,6 @@ const getToken = async (context, code) => {
       status: 302,
       headers: {
         location: HOST_FRONTEND,
-        headers: {
-          "Access-Control-Allow-Credentials": true,
-        },
       },
       cookies: [
         {
@@ -72,7 +69,6 @@ const getToken = async (context, code) => {
           maxAge: expires_in,
           sameSite: "None",
           secure: true,
-          httpOnly: true,
         },
       ],
     };

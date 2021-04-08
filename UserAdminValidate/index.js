@@ -19,13 +19,10 @@ function userAdminValidate(context, req) {
       headers: headersResponse,
     };
   } catch (err) {
-    const { status, message } = err || {
-      status: 500,
-      message: err,
-    };
+    const { status = 500, message = err } = err;
 
     context.res = {
-      status,
+      status: status,
       body: {
         message,
       },
